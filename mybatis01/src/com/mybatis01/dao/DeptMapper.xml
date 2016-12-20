@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc">
+	<update id="updateDept" parameterType="Dept">
+	update DEPT = 
+	set DNAME = #{dname}, LOC = #{loc}
+	where DEPTNO = #{deptno}
+	</update>
+
+	<insert id="addDept" parameterType="Dept">
+	insert into DEPT(DEPTNO,DNAME,LOC)
+	values(#{depono},#{dname},#{loc})
+	</insert>
+
+<!-- 映射结果集 -->
+<resultMap type="Dept" id="dept-result">
+<id property="deptno" column="DEPTNO"/>
+<result property="dname" column="DNAME"/>
+<result property="loc" column="LOC"/>
+</resultMap>
+<!-- 查询所有 -->
+<select id="findAll" resultMap="dept-result">
+select DEPTNO,DNAME,LOC from DEPT
+</select>
+
+<!-- select节点：根据id查询语句 
+parameterType属性：传入参数的类型
+resultType属性：返回类型-->
+<select id="findById" parameterType="int" resultType="Dept">
+select DEPTNO,DNAME,LOC from DEPT
+where DEPTNO=#{deptno}
+</select>
+</mapper>
